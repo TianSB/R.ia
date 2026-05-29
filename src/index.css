@@ -1,0 +1,55 @@
+:root {
+  --teal:       #1A5C5E;
+  --teal-light: #2D8285;
+  --terracotta: #C97B5D;
+  --terracotta-light: #E89E82;
+  --gold:       #D4A853;
+  --gold-light: #E8C87A;
+  --cream:      #F5F0EB;
+  --cream-dark: #E8E0D8;
+  --warm-white: #FDFBFA;
+  --charcoal:   #2D2D2D;
+  --slate:      #5A6577;
+  --sage:       #8BA88E;
+  --sage-light: #B5CDB8;
+
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--charcoal);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
