@@ -1043,21 +1043,35 @@ button {
 }
 
 /* ═══════════════════════════════════════
-   RÍA SVG – dendritic delta inspired by Bahía Blanca estuary
-   Flows left→right (continent→Atlantic) like satellite imagery
+   RÍA SVG – Generative tidal estuary
+   Inspired by satellite imagery of Bahía Blanca.
+   Organic dendritic channels breathing with tidal flow.
    ═══════════════════════════════════════ */
 
 .ria-container {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: clamp(140px, 18vh, 220px);
+  inset: 0;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.55;
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 8%, rgba(0,0,0,0.65) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.35) 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 8%, rgba(0,0,0,0.65) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.35) 92%, transparent 100%);
+  opacity: 0.45;
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0,0,0,0.2) 15%,
+    rgba(0,0,0,0.55) 35%,
+    rgba(0,0,0,0.65) 60%,
+    rgba(0,0,0,0.45) 85%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0,0,0,0.2) 15%,
+    rgba(0,0,0,0.55) 35%,
+    rgba(0,0,0,0.65) 60%,
+    rgba(0,0,0,0.45) 85%,
+    transparent 100%
+  );
 }
 
 .ria-svg {
@@ -1065,70 +1079,143 @@ button {
   height: 100%;
 }
 
-/* Channel paths — slow organic draw, like a river carving the landscape */
-.ria-path {
-  stroke: var(--accent);
-  fill: none;
-  stroke-dasharray: 4000;
-  stroke-dashoffset: 4000;
-  animation: drawChannel 20s ease-in-out infinite;
-}
-
-.ria-path--main {
+/* ── Ambient estuary glow ── */
+.ria-glow {
   opacity: 0.35;
-  animation-delay: 0s;
-  filter: blur(0.3px);
+  mix-blend-mode: screen;
+  animation: glowBreathe 30s ease-in-out infinite;
 }
 
-.ria-path--secondary {
-  opacity: 0.25;
-  animation-delay: -3s;
+@keyframes glowBreathe {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 0.45; }
 }
 
-.ria-path--tertiary {
-  opacity: 0.15;
-  animation-delay: -6s;
+/* ── Base channel style ── */
+.ria-channel {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.ria-path--tiny {
-  opacity: 0.1;
+/* ── Primary (Canal Principal) ── */
+.channel--primary {
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  filter: blur(0.5px);
+  animation: tidePrimary 48s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.channel--primary-lower {
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  opacity: 0.2;
+  filter: blur(0.8px);
+  animation: tidePrimary 48s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   animation-delay: -2s;
 }
 
-.ria-path--mouth {
-  opacity: 0.08;
+/* ── Secondary channels ── */
+.channel--secondary {
+  stroke: var(--accent);
+  stroke-width: 1.4;
+  animation: tideSecondary 52s cubic-bezier(0.4, 0.08, 0.6, 0.92) infinite;
+}
+
+.channel--secondary-rejoin {
+  stroke: var(--accent-secondary);
+  stroke-width: 1.2;
+  opacity: 0.7;
+  animation: tideSecondary 54s cubic-bezier(0.4, 0.08, 0.6, 0.92) infinite;
+  animation-delay: -4s;
+}
+
+/* ── Tertiary tributaries ── */
+.channel--tertiary {
+  stroke: var(--accent);
+  stroke-width: 0.9;
+  animation: tideTertiary 56s cubic-bezier(0.42, 0.06, 0.58, 0.94) infinite;
+}
+
+/* ── Capillary / tidal creeks (very fine, dendritic) ── */
+.channel--capillary {
+  stroke: var(--accent);
+  stroke-width: 0.4;
+  animation: tideCapillary 60s ease-in-out infinite;
+}
+
+.channel--capillary-faint {
+  stroke: var(--accent);
+  stroke-width: 0.25;
+  animation: tideCapillary 64s ease-in-out infinite;
   animation-delay: -8s;
 }
 
-@keyframes drawChannel {
-  0%   { stroke-dashoffset: 4000; }
-  25%  { stroke-dashoffset: 0; }
-  72%  { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -4000; }
+/* ── Mouth distributaries ── */
+.channel--mouth {
+  stroke: var(--accent);
+  stroke-width: 1;
+  filter: blur(0.3px);
+  animation: tideMouth 44s cubic-bezier(0.43, 0.07, 0.57, 0.93) infinite;
 }
 
-/* Flow particles — tiny lights drifting rightward along the current */
-.ria-particle {
-  fill: var(--accent);
-  opacity: 0;
-  animation: flowParticle 24s ease-in-out infinite;
+.channel--mouth-wide {
+  stroke: var(--accent);
+  stroke-width: 0.6;
+  opacity: 0.5;
+  animation: tideMouth 46s cubic-bezier(0.43, 0.07, 0.57, 0.93) infinite;
+  animation-delay: -5s;
 }
 
-.ria-particle--1 { animation-delay: 0s; }
-.ria-particle--2 { animation-delay: -4s; }
-.ria-particle--3 { animation-delay: -8s; }
-.ria-particle--4 { animation-delay: -3s; }
-.ria-particle--5 { animation-delay: -10s; }
-.ria-particle--6 { animation-delay: -6s; }
-.ria-particle--7 { animation-delay: -14s; }
-.ria-particle--8 { animation-delay: -2s; }
+/* ── Tidal breathing animations ── */
 
-@keyframes flowParticle {
-  0%   { opacity: 0; transform: translateX(0); }
-  12%  { opacity: 0.65; }
-  75%  { opacity: 0.65; }
-  90%  { opacity: 0; }
-  100% { opacity: 0; transform: translateX(60px); }
+@keyframes tidePrimary {
+  0%   { transform: translate(0, 0);     opacity: 0.4;  }
+  16%  { transform: translate(0, 2.5px);  opacity: 0.45; }
+  33%  { transform: translate(0, -1.5px); opacity: 0.38; }
+  50%  { transform: translate(0, 3px);    opacity: 0.42; }
+  66%  { transform: translate(0, -2px);   opacity: 0.36; }
+  83%  { transform: translate(0, 1.8px);  opacity: 0.44; }
+  100% { transform: translate(0, 0);     opacity: 0.4;  }
+}
+
+@keyframes tideSecondary {
+  0%   { transform: translate(0, 0);     opacity: 0.22; }
+  20%  { transform: translate(0, 4px);   opacity: 0.28; }
+  40%  { transform: translate(0, -3px);  opacity: 0.18; }
+  60%  { transform: translate(0, 5px);   opacity: 0.25; }
+  80%  { transform: translate(0, -2px);  opacity: 0.2;  }
+  100% { transform: translate(0, 0);     opacity: 0.22; }
+}
+
+@keyframes tideTertiary {
+  0%   { transform: translate(0, 0);     opacity: 0.14; }
+  15%  { transform: translate(0, 6px);   opacity: 0.18; }
+  35%  { transform: translate(0, -4px);  opacity: 0.1;  }
+  55%  { transform: translate(0, 7px);   opacity: 0.16; }
+  75%  { transform: translate(0, -3px);  opacity: 0.12; }
+  100% { transform: translate(0, 0);     opacity: 0.14; }
+}
+
+@keyframes tideCapillary {
+  0%   { opacity: 0.04; transform: translate(0, 0);   }
+  12%  { opacity: 0.1;  transform: translate(0, 4px);  }
+  28%  { opacity: 0.06; transform: translate(0, -3px); }
+  44%  { opacity: 0.12; transform: translate(0, 6px);  }
+  60%  { opacity: 0.05; transform: translate(0, -2px); }
+  76%  { opacity: 0.09; transform: translate(0, 5px);  }
+  88%  { opacity: 0.03; transform: translate(0, -1px); }
+  100% { opacity: 0.04; transform: translate(0, 0);   }
+}
+
+@keyframes tideMouth {
+  0%   { transform: translate(0, 0);     opacity: 0.2;  }
+  18%  { transform: translate(0, 4px);   opacity: 0.25; }
+  36%  { transform: translate(0, -3px);  opacity: 0.18; }
+  54%  { transform: translate(0, 5px);   opacity: 0.23; }
+  72%  { transform: translate(0, -2px);  opacity: 0.17; }
+  90%  { transform: translate(0, 3px);   opacity: 0.22; }
+  100% { transform: translate(0, 0);     opacity: 0.2;  }
 }
 
 /* ═══════════════════════════════════════
@@ -1258,10 +1345,27 @@ button {
     font-size: 0.8rem;
   }
 
-  /* ── Ría — more subtle on small screens ── */
+  /* ── Ría, more subtle on small screens ── */
 
   .ria-container {
-    height: 80px;
-    opacity: 0.4;
+    opacity: 0.3;
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0,0,0,0.15) 10%,
+      rgba(0,0,0,0.45) 30%,
+      rgba(0,0,0,0.55) 60%,
+      rgba(0,0,0,0.35) 85%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0,0,0,0.15) 10%,
+      rgba(0,0,0,0.45) 30%,
+      rgba(0,0,0,0.55) 60%,
+      rgba(0,0,0,0.35) 85%,
+      transparent 100%
+    );
   }
 }

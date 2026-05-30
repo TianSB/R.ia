@@ -136,14 +136,14 @@ export const brand = {
     {
       symbol: '◇',
       accent: 'var(--accent-secondary)',
-      short: 'Detrás de cada sistema hay personas que merecen trabajar con menos carga.',
+      short: 'En toda empresa hay personas que cargan el peso del día a día.',
       expanded: 'No transformamos por transformar. No optimizamos por optimizar. Detrás de cada sistema hay una persona que carga el peso del día a día. Y esa persona importa. Las fricciones invisibles no son ineficiencias: son desgaste humano. Y el desgaste humano no se resuelve con más tecnología fría. Se resuelve con diseño que cuida.',
     },
     {
       symbol: '◆',
       accent: 'var(--accent-dim)',
       short: 'Convertimos la información dispersa en claridad para tomar decisiones sin adivinar.',
-      expanded: 'Creemos en la claridad como herramienta de liberación. Que la información dispersa se vuelva orden estratégico. Que el potencial operativo se vuelva resultados concretos. Que la inteligencia cotidiana —la que simplifica— sea más importante que la inteligencia artificial que impresiona. Prometemos funcionamiento. Prometemos claridad. Prometemos que tu negocio trabaje para vos, y no al revés.',
+      expanded: 'Creemos en la claridad como herramienta de liberación. Que la información dispersa se vuelva orden estratégico. Que el potencial operativo se vuelva resultados concretos. Que la inteligencia cotidiana, la que simplifica, sea más importante que la inteligencia artificial que impresiona.',
     },
   ],
 } as const;
