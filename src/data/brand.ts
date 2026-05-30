@@ -7,14 +7,14 @@ export const brand = {
   frase: '"No ayudamos solamente a que los negocios crezcan. Ayudamos a que funcionen mejor para las personas que los sostienen."',
 
   palette: [
-    { name: 'Teal profundo', hex: '#1A5C5E', role: 'Color principal · Profundidad, confianza' },
-    { name: 'Terracota', hex: '#C97B5D', role: 'Secundario · Calidez, cercanía' },
+    { name: 'Teal cálido', hex: '#1A2E28', role: 'Fondo principal · Calma, profundidad' },
+    { name: 'Terracota', hex: '#C97B5D', role: 'Color principal · Calidez, cercanía' },
     { name: 'Oro cálido', hex: '#D4A853', role: 'Acento · Transformación, alquimia' },
     { name: 'Sage', hex: '#8BA88E', role: 'Acento secundario · Regeneración, sostenibilidad' },
-    { name: 'Navy', hex: '#1A3C5E', role: 'Tono profundo · Bases, fondos, header' },
-    { name: 'Crema', hex: '#F5F0EB', role: 'Fondo principal · Calidez, textura, natural' },
+    { name: 'Navy', hex: '#1A3C5E', role: 'Tono profundo · Profundidad' },
+    { name: 'Crema', hex: '#F5F0EB', role: 'Fondo secundario · Calidez, textura, natural' },
     { name: 'Pizarra', hex: '#5A6577', role: 'Texto secundario · Metadatos, etiquetas' },
-    { name: 'Carbón', hex: '#2D2D2D', role: 'Texto principal · Legibilidad, contraste' },
+    { name: 'Carbón', hex: '#2D2D2D', role: 'Texto sobre fondos claros · Legibilidad' },
   ],
 
   typography: [
@@ -36,42 +36,42 @@ export const brand = {
 
   areas: [
     {
-      title: 'Gestión',
+      title: 'Que la información se entienda',
       symbol: '◇',
-      description: 'Organizamos la información dispersa y creamos claridad administrativa. Desde órdenes de compra hasta planillas que realmente se entienden.',
+      description: 'Ponemos orden en tus números, clientes y documentos para que todo esté claro y accesible. Sin planillas imposibles, sin perder tiempo buscando.',
     },
     {
-      title: 'Procesos',
+      title: 'Que lo repetitivo desaparezca',
       symbol: '□',
-      description: 'Automatizamos tareas repetitivas y diseñamos flujos de trabajo que ahorran horas todos los días. Sin código, sin complicación.',
+      description: 'Eliminamos las tareas que hacés una y otra vez. Desde recordatorios hasta reportes, todo fluye solo mientras vos te dedicás a lo que importa.',
     },
     {
-      title: 'Comunicación',
+      title: 'Que nadie se quede sin respuesta',
       symbol: '○',
-      description: 'Centralizamos mensajes, pedidos y consultas en un solo lugar. Menos ruido, más respuestas rápidas.',
+      description: 'Centralizamos mensajes, pedidos y consultas en un solo lugar. Menos ruido, más respuestas rápidas, clientes más contentos.',
     },
     {
-      title: 'Datos',
+      title: 'Que sepas cómo va todo',
       symbol: '△',
-      description: 'Convertimos números dispersos en información accionable. Paneles simples para tomar decisiones sin adivinar.',
+      description: 'Convertimos los números de tu negocio en algo simple de entender. Saber si va bien o mal sin tener que ser experto.',
     },
   ],
 
   process: [
     {
       step: 1,
-      title: 'Detectamos el problema',
-      description: 'Hablamos con el cliente y entendemos qué tarea consume tiempo o genera desorden.',
+      title: 'Conversamos y entendemos',
+      description: 'Nos sentamos a escuchar cómo funciona tu día a día. Sin preguntas técnicas, solo entendiendo qué podría ser más simple.',
     },
     {
       step: 2,
-      title: 'Diseñamos la solución',
-      description: 'Creamos un sistema simple usando IA y automatizaciones adaptadas al negocio.',
+      title: 'Diseñamos algo simple',
+      description: 'Creamos una solución a tu medida. Sin complicaciones, pensada para que cualquiera la entienda y la use desde el primer día.',
     },
     {
       step: 3,
-      title: 'Implementamos y acompañamos',
-      description: 'Dejamos la herramienta funcionando y damos soporte para mantenerla estable.',
+      title: 'Te acompañamos en el cambio',
+      description: 'No te dejamos solo. Te acompañamos hasta que todo funcione y vos te sientas tranquilo. Y seguimos ahí si algo surge.',
     },
   ],
 
@@ -130,19 +130,19 @@ export const brand = {
     {
       symbol: '▸',
       accent: 'var(--accent)',
-      short: 'El caos es energía desordenada. Encontramos los puntos exactos donde un pequeño cambio transforma todo.',
+      short: 'Pequeños cambios bien ubicados transforman el funcionamiento entero de un negocio.',
       expanded: 'Sabemos que el caos no es un problema. Es energía desordenada. Y donde otros ven desorden, vemos puntos de expansión. Pequeños cambios que, bien ubicados, transforman el funcionamiento entero de un negocio. No venimos a corregir. Venimos a convertir: lo pesado en liviano, lo opaco en claro, lo disperso en fluido.',
     },
     {
       symbol: '◇',
       accent: 'var(--accent-secondary)',
-      short: 'Detrás de cada sistema hay personas. No optimizamos procesos, cuidamos a quienes los sostienen.',
+      short: 'Detrás de cada sistema hay personas que merecen trabajar con menos carga.',
       expanded: 'No transformamos por transformar. No optimizamos por optimizar. Detrás de cada sistema hay una persona que carga el peso del día a día. Y esa persona importa. Las fricciones invisibles no son ineficiencias: son desgaste humano. Y el desgaste humano no se resuelve con más tecnología fría. Se resuelve con diseño que cuida.',
     },
     {
       symbol: '◆',
       accent: 'var(--accent-dim)',
-      short: 'La claridad no se improvisa. Convertimos información dispersa en orden estratégico.',
+      short: 'Convertimos la información dispersa en claridad para tomar decisiones sin adivinar.',
       expanded: 'Creemos en la claridad como herramienta de liberación. Que la información dispersa se vuelva orden estratégico. Que el potencial operativo se vuelva resultados concretos. Que la inteligencia cotidiana —la que simplifica— sea más importante que la inteligencia artificial que impresiona. Prometemos funcionamiento. Prometemos claridad. Prometemos que tu negocio trabaje para vos, y no al revés.',
     },
   ],

@@ -1,22 +1,29 @@
 :root {
-  /* Dark palette */
-  --bg-primary:    #0A0A0A;
-  --bg-secondary:  #111111;
-  --bg-elevated:   #1A1A1A;
-  --bg-hover:      #222222;
+  /* Warm dark palette */
+  --bg-primary:    #1A2E28;
+  --bg-secondary:  #1F352E;
+  --bg-elevated:   #253B34;
+  --bg-hover:      #2A423A;
+  --bg-warm:       #F5F0EB;
 
-  --text-primary:   #E8E8E8;
-  --text-secondary: #8A8A8A;
-  --text-tertiary:  #555555;
+  --text-primary:   #EDE8E2;
+  --text-secondary: #A8A09A;
+  --text-tertiary:  #7A746E;
+  --text-on-warm:   #2D2D2D;
+  --text-on-warm-secondary: #5A6577;
 
-  --accent:       #6BA89A;
-  --accent-light: #8CC4B8;
-  --accent-dim:   #4A8A7C;
-  --accent-glow:  rgba(107, 168, 154, 0.15);
+  --accent:       #C97B5D;
+  --accent-light: #DB9074;
+  --accent-dim:   #A86145;
+  --accent-glow:  rgba(201, 123, 93, 0.15);
+
+  --accent-secondary: #8BA88E;
+  --accent-tertiary:  #D4A853;
 
   --border:       rgba(255, 255, 255, 0.06);
   --border-hover: rgba(255, 255, 255, 0.12);
-  --border-focus: rgba(107, 168, 154, 0.3);
+  --border-focus: rgba(201, 123, 93, 0.3);
+  --border-warm:  rgba(45, 45, 45, 0.08);
 
   --font-mono:  'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   --font-body:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -78,6 +85,46 @@ button {
 ::-webkit-scrollbar-thumb:hover { background: var(--bg-hover); }
 
 /* ═══════════════════════════════════════
+   WARM SECTIONS
+   ═══════════════════════════════════════ */
+
+.section-warm {
+  --text-primary: var(--text-on-warm);
+  --text-secondary: var(--text-on-warm-secondary);
+  --text-tertiary: var(--text-on-warm-secondary);
+  --border: var(--border-warm);
+  background: var(--bg-warm);
+  color: var(--text-on-warm);
+}
+
+.section-warm .area-card,
+.section-warm .service-card,
+.section-warm .belief-card,
+.section-warm .process-card {
+  background: #FAF8F5;
+  border-color: var(--border-warm);
+}
+
+.section-warm .area-card:hover,
+.section-warm .service-card:hover,
+.section-warm .belief-card:hover,
+.section-warm .process-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px rgba(45, 45, 45, 0.07);
+}
+
+.section-warm .process-card__step {
+  background: rgba(201, 123, 93, 0.08);
+  border-color: rgba(201, 123, 93, 0.15);
+}
+
+.section-warm .belief-card__inner p {
+  border-top-color: var(--border-warm);
+}
+
+
+
+/* ═══════════════════════════════════════
    NAVBAR
    ═══════════════════════════════════════ */
 
@@ -90,13 +137,18 @@ button {
   height: var(--nav-height);
   display: flex;
   align-items: center;
-  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+  transition: transform 0.35s ease, background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
   background: transparent;
   border-bottom: 1px solid transparent;
+  transform: translateY(0);
+}
+
+.navbar--hidden {
+  transform: translateY(calc(var(--nav-height) * -1));
 }
 
 .navbar--scrolled {
-  background: rgba(10, 10, 10, 0.82);
+  background: rgba(26, 46, 40, 0.82);
   backdrop-filter: blur(20px) saturate(1.3);
   -webkit-backdrop-filter: blur(20px) saturate(1.3);
   border-bottom-color: var(--border);
@@ -190,33 +242,87 @@ button {
   cursor: pointer;
   background: none;
   border: none;
+  border-radius: 50%;
   padding: 0;
   z-index: 1001;
+  position: relative;
+  transition: background 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Background circle that fades in */
+.navbar__hamburger::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(201, 123, 93, 0.08);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+}
+
+.navbar__hamburger:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.hamburger--active::before {
+  background: rgba(201, 123, 93, 0.12);
+  transform: scale(1);
+  opacity: 1;
 }
 
 .hamburger-line {
   display: block;
-  width: 20px;
+  width: 18px;
   height: 1.5px;
   background: var(--text-secondary);
-  border-radius: 1px;
-  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+  border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.25s ease 0ms,
+              background 0.3s ease;
+  transform-origin: center;
+  position: relative;
+  z-index: 1;
 }
 
 .navbar__hamburger:hover .hamburger-line {
   background: var(--text-primary);
 }
 
+/* Active: morph into X with spring-like bounce */
 .hamburger--active .hamburger-line:nth-child(1) {
   transform: translateY(6.5px) rotate(45deg);
+  transition-delay: 40ms;
 }
 
 .hamburger--active .hamburger-line:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 0.15s ease, transform 0.25s ease;
 }
 
 .hamburger--active .hamburger-line:nth-child(3) {
   transform: translateY(-6.5px) rotate(-45deg);
+  transition-delay: 40ms;
+}
+
+/* Reverting: lines bounce back with stagger */
+.hamburger-line:nth-child(1) {
+  transition-delay: 60ms;
+}
+
+.hamburger-line:nth-child(2) {
+  transition-delay: 0ms;
+}
+
+.hamburger-line:nth-child(3) {
+  transition-delay: 60ms;
+}
+
+.hamburger--active .hamburger-line:nth-child(1),
+.hamburger--active .hamburger-line:nth-child(3) {
+  transition-delay: 0ms;
 }
 
 .navbar--menu-open .hamburger-line {
@@ -362,14 +468,14 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
-  padding: 5px 14px;
+  padding: 6px 16px;
   border-radius: 100px;
   margin-bottom: 24px;
   font-family: var(--font-mono);
@@ -389,7 +495,7 @@ button {
   gap: 10px;
   padding: 12px 24px;
   background: var(--accent);
-  color: var(--bg-primary);
+  color: var(--bg-warm);
   font-size: 0.88rem;
   font-weight: 550;
   border-radius: 100px;
@@ -436,7 +542,7 @@ button {
   box-shadow: 0 0 20px var(--accent-glow);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   text-decoration: none;
-  color: var(--bg-primary);
+  color: var(--bg-warm);
   font-size: 0.9rem;
   font-weight: 600;
   font-family: var(--font-mono);
@@ -445,13 +551,13 @@ button {
 
 .whatsapp-float:hover {
   transform: scale(1.08);
-  box-shadow: 0 0 32px rgba(107, 168, 154, 0.35);
+  box-shadow: 0 0 32px rgba(201, 123, 93, 0.35);
   animation-play-state: paused;
 }
 
 @keyframes floatPulse {
   0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
-  50% { box-shadow: 0 0 32px rgba(107, 168, 154, 0.3); }
+  50% { box-shadow: 0 0 32px rgba(201, 123, 93, 0.3); }
 }
 
 /* ═══════════════════════════════════════
@@ -465,12 +571,29 @@ button {
   border: 1px solid var(--border);
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.area-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background: var(--accent);
+  transition: height 0.35s ease;
 }
 
 .area-card:hover {
   transform: translateY(-4px);
   border-color: var(--border-hover);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.area-card:hover::before {
+  height: 100%;
 }
 
 .area-card__symbol {
@@ -480,7 +603,7 @@ button {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-sm);
-  background: rgba(107, 168, 154, 0.08);
+  background: var(--accent-glow);
   color: var(--accent);
   font-size: 1rem;
   margin-bottom: 16px;
@@ -488,7 +611,7 @@ button {
 }
 
 .area-card:hover .area-card__symbol {
-  background: rgba(107, 168, 154, 0.15);
+  background: rgba(201, 123, 93, 0.15);
   transform: scale(1.1);
 }
 
@@ -533,8 +656,8 @@ button {
   width: 40px;
   height: 40px;
   border-radius: var(--radius-sm);
-  background: rgba(107, 168, 154, 0.1);
-  border: 1px solid rgba(107, 168, 154, 0.2);
+  background: rgba(201, 123, 93, 0.1);
+  border: 1px solid rgba(201, 123, 93, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -608,25 +731,25 @@ button {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-sm);
-  background: rgba(107, 168, 154, 0.08);
+  background: var(--accent-glow);
   color: var(--accent);
   font-size: 0.9rem;
   transition: background 0.25s ease, transform 0.25s ease;
 }
 
 .service-card:hover .service-card__symbol {
-  background: rgba(107, 168, 154, 0.15);
+  background: rgba(201, 123, 93, 0.15);
   transform: scale(1.1);
 }
 
 .service-card__tag {
   display: inline-block;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
   padding: 4px 10px;
   border-radius: 4px;
   font-family: var(--font-mono);
@@ -671,7 +794,7 @@ button {
 }
 
 .belief-card--open {
-  border-color: rgba(107, 168, 154, 0.2);
+  border-color: rgba(201, 123, 93, 0.2);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
@@ -808,8 +931,44 @@ button {
 
 .site-footer {
   border-top: 1px solid var(--border);
-  padding: 32px 0;
+  padding: 48px 0 40px;
   text-align: center;
+  position: relative;
+}
+
+.footer__ornament {
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.3;
+  margin: 0 auto 20px;
+}
+
+.footer__tagline {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.footer__brand {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.footer__brand-sub {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  font-weight: 400;
 }
 
 .site-footer__text {
@@ -818,17 +977,158 @@ button {
   line-height: 1.8;
 }
 
-.site-footer__link {
+.footer__cta {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(201, 123, 93, 0.08);
+  border: 1px solid rgba(201, 123, 93, 0.15);
+  border-radius: 100px;
   color: var(--accent);
-  font-family: var(--font-mono);
   font-size: 0.78rem;
-  transition: opacity 0.2s;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.footer__cta:hover {
+  background: rgba(201, 123, 93, 0.12);
+  border-color: rgba(201, 123, 93, 0.25);
+  transform: translateY(-1px);
+}
+
+.footer__cta:hover span {
+  transform: translateX(3px);
+}
+
+.site-footer__link {
+  color: var(--text-tertiary);
+  font-size: 0.78rem;
+  transition: color 0.2s;
   display: inline-block;
   margin-top: 8px;
 }
 
 .site-footer__link:hover {
-  opacity: 0.7;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════
+   PROCESS TIMELINE CONNECTOR
+   ═══════════════════════════════════════ */
+
+.process-timeline {
+  position: relative;
+}
+
+.process-timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 44px;
+  bottom: 44px;
+  width: 1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(201, 123, 93, 0.3) 0px,
+    rgba(201, 123, 93, 0.3) 3px,
+    transparent 3px,
+    transparent 8px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════
+   RÍA SVG – dendritic delta inspired by Bahía Blanca estuary
+   Flows left→right (continent→Atlantic) like satellite imagery
+   ═══════════════════════════════════════ */
+
+.ria-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: clamp(140px, 18vh, 220px);
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.55;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 8%, rgba(0,0,0,0.65) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.35) 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 8%, rgba(0,0,0,0.65) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.35) 92%, transparent 100%);
+}
+
+.ria-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Channel paths — slow organic draw, like a river carving the landscape */
+.ria-path {
+  stroke: var(--accent);
+  fill: none;
+  stroke-dasharray: 4000;
+  stroke-dashoffset: 4000;
+  animation: drawChannel 20s ease-in-out infinite;
+}
+
+.ria-path--main {
+  opacity: 0.35;
+  animation-delay: 0s;
+  filter: blur(0.3px);
+}
+
+.ria-path--secondary {
+  opacity: 0.25;
+  animation-delay: -3s;
+}
+
+.ria-path--tertiary {
+  opacity: 0.15;
+  animation-delay: -6s;
+}
+
+.ria-path--tiny {
+  opacity: 0.1;
+  animation-delay: -2s;
+}
+
+.ria-path--mouth {
+  opacity: 0.08;
+  animation-delay: -8s;
+}
+
+@keyframes drawChannel {
+  0%   { stroke-dashoffset: 4000; }
+  25%  { stroke-dashoffset: 0; }
+  72%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -4000; }
+}
+
+/* Flow particles — tiny lights drifting rightward along the current */
+.ria-particle {
+  fill: var(--accent);
+  opacity: 0;
+  animation: flowParticle 24s ease-in-out infinite;
+}
+
+.ria-particle--1 { animation-delay: 0s; }
+.ria-particle--2 { animation-delay: -4s; }
+.ria-particle--3 { animation-delay: -8s; }
+.ria-particle--4 { animation-delay: -3s; }
+.ria-particle--5 { animation-delay: -10s; }
+.ria-particle--6 { animation-delay: -6s; }
+.ria-particle--7 { animation-delay: -14s; }
+.ria-particle--8 { animation-delay: -2s; }
+
+@keyframes flowParticle {
+  0%   { opacity: 0; transform: translateX(0); }
+  12%  { opacity: 0.65; }
+  75%  { opacity: 0.65; }
+  90%  { opacity: 0; }
+  100% { opacity: 0; transform: translateX(60px); }
 }
 
 /* ═══════════════════════════════════════
@@ -855,5 +1155,113 @@ button {
 
   .navbar__inner {
     padding: 0 20px;
+  }
+
+  /* ── Sections & Hero ── */
+
+  header {
+    padding-top: 110px !important;
+    padding-bottom: 56px !important;
+  }
+
+  section[id] {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+
+  section[id] > div,
+  header > div:last-child,
+  footer > div {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* ── Section titles ── */
+
+  section[id] h2 {
+    margin-bottom: 32px !important;
+  }
+
+  /* ── Section intro paragraph (concepts description) ── */
+  section[id] p[style*="marginBottom"] {
+    margin-bottom: 28px !important;
+  }
+
+  /* ── Cards ── */
+
+  .area-card {
+    padding: 24px;
+  }
+
+  .service-card {
+    padding: 22px;
+  }
+
+  .process-card {
+    padding: 20px;
+    gap: 14px;
+  }
+
+  .process-card__step {
+    width: 36px;
+    height: 36px;
+    font-size: 0.78rem;
+  }
+
+  /* ── Beliefs accordion ── */
+
+  .belief-card__trigger {
+    padding: 16px 20px;
+    gap: 12px;
+  }
+
+  .belief-card__short {
+    font-size: 0.85rem;
+  }
+
+  .belief-card__symbol {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .belief-card__inner {
+    padding: 0 20px;
+  }
+
+  .content--visible .belief-card__inner {
+    padding-bottom: 14px;
+  }
+
+  .beliefs-closing {
+    margin-top: 28px;
+    padding: 24px 16px;
+  }
+
+  .beliefs-closing__quote {
+    font-size: 1rem;
+  }
+
+  /* ── Footer ── */
+
+  .site-footer {
+    padding: 24px 0;
+  }
+
+  /* ── WhatsApp button ── */
+
+  .whatsapp-float {
+    bottom: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    font-size: 0.8rem;
+  }
+
+  /* ── Ría — more subtle on small screens ── */
+
+  .ria-container {
+    height: 80px;
+    opacity: 0.4;
   }
 }

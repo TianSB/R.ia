@@ -2,21 +2,39 @@ import { useEffect, useState } from 'react'
 import { brand } from '../data/brand'
 
 const sections = [
-  { id: 'areas', label: 'Áreas' },
-  { id: 'proceso', label: 'Cómo trabajamos' },
   { id: 'conceptos', label: 'Diagnóstico' },
+  { id: 'areas', label: 'Servicios' },
+  { id: 'proceso', label: 'Cómo trabajamos' },
   { id: 'creemos', label: 'Nuestra mirada' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    let lastScroll = window.scrollY
+
+    const onScroll = () => {
+      const current = window.scrollY
+
+      setScrolled(current > 60)
+
+      // Auto-hide: hide when scrolling down past threshold, show when scrolling up
+      // Keep visible when mobile menu is open
+      if (current > 120 && current > lastScroll && !menuOpen) {
+        setHidden(true)
+      } else if (current < lastScroll) {
+        setHidden(false)
+      }
+
+      lastScroll = current
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [menuOpen])
 
   // Close mobile menu when resizing to desktop
   useEffect(() => {
@@ -42,7 +60,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}${menuOpen ? ' navbar--menu-open' : ''}`}>
+      <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}${hidden ? ' navbar--hidden' : ''}${menuOpen ? ' navbar--menu-open' : ''}`}>
         <div className="navbar__inner">
           <button
             className="navbar__logo"
